@@ -6,3 +6,17 @@ CodeCoverageTesting/CodeCoverageTesting.UnitTests/bin/
 
 CodeCoverageTesting/CodeCoverageTesting/obj/
 CodeCoverageTesting/CodeCoverageTesting/bin/
+
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
+node_modules
+build
+npm-debug.log
+.env
+.DS_Store
