@@ -1,6 +1,6 @@
 name: Unit Test With Coverage
-on:
-  workflow_dispatch:
+on: [pull_request]
+  
 jobs:
   build:
     runs-on: ubuntu-latest
