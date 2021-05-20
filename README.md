@@ -1,1 +1,1 @@
-![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/sam-mckay/c624dfd2c4063c437d1857ce3478eac2/raw/code-coverage.json)
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/sam-mckay/588bf0e93a22c022478c4b8dc374332c/raw/coverage.json)
