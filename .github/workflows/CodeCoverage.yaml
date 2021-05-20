@@ -1,60 +1,30 @@
-name: Code Coverage
-
-on: [pull_request]
-
+name: Unit Test With Coverage
+on:
+  workflow_dispatch:
 jobs:
-  base_branch_cov:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.base_ref }}
-      - name: Use Node.js 14.16.1
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.16.1
-
-      - name: Install dependencies
-        run: yarn
-
-      - name: Run test coverage
-        run: yarn coverage
-
-      - name: Upload code coverage for ref branch
-        uses: actions/upload-artifact@v2
-        with:
-          name: ref-lcov.info
-          path: ./coverage/lcov.info
-
-  checks:
-    runs-on: ubuntu-latest
-    needs: base_branch_cov
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 14.16.1
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.16.1
-
-      - name: Download code coverage report from base branch
-        uses: actions/download-artifact@v2
-        with:
-          name: ref-lcov.info
-
-      - name: Install dependencies
-        run: yarn
-
-      - name: Run test coverage
-        run: yarn coverage
-
-      #  Compares two code coverage files and generates report as a comment
-      - name: Generate Code Coverage report
-        id: code-coverage
-        uses: barecheck/code-coverage-action@v0.3.3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          lcov-file: "./coverage/lcov.info"
-          base-lcov-file: "./lcov.info"
-          minimum-ratio: 0 # Fails Github action once code coverage is decreasing
-          send-summary-comment: true
-          show-annotations: "warning" # Possible options warning|error
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    - name: Restore dependencies
+      run: dotnet restore   
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test  -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover --no-build --verbosity normal <MyProject>.Tests/
+    - name: Create Test Coverage Badge
+      uses: simon-k/dotnet-code-coverage-badge@v1.0.0
+      id: create_coverage_badge
+      with:
+        label: Unit Test Coverage
+        color: brightgreen
+        path: <MyProject>.Tests/TestResults/coverage.opencover.xml
+        gist-filename: code-coverage.json
+        gist-id: 1234567890abcdef1234567890abcdef
+        gist-auth-token: ${{ secrets.GIST_AUTH_TOKEN }}       
+    - name: Print code coverage
+      run: echo "Code coverage percentage ${{steps.create_coverage_badge.outputs.percentage}}%"

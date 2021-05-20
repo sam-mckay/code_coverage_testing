@@ -1,11 +1,9 @@
 
-CodeCoverageTesting/.idea/.idea.CodeCoverageTesting/.idea/
-
-CodeCoverageTesting/CodeCoverageTesting.UnitTests/obj/
-CodeCoverageTesting/CodeCoverageTesting.UnitTests/bin/
-
-CodeCoverageTesting/CodeCoverageTesting/obj/
-CodeCoverageTesting/CodeCoverageTesting/bin/
+.idea/.idea.CodeCoverageTesting/.idea/
+CodeCoverageTesting.UnitTests/obj/
+CodeCoverageTesting.UnitTests/bin/
+CodeCoverageTesting/obj/
+CodeCoverageTesting/bin/
 
 .yarn/*
 !.yarn/patches
