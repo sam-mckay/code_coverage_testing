@@ -19,3 +19,7 @@ npm-debug.log
 .env
 
 .DS_Store
+Library/LibraryProjectCode/obj/
+Library/LibraryProjectCode/bin/
+Library/LibraryProjectCodeTests/obj/
+Library/LibraryProjectCodeTests/bin/
